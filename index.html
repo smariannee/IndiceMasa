@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cálculo de Índice de Masa Corporal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<style>
+    #title {
+        text-align: center;
+    }
+</style>
+
+<body>
+    <div class="container fluid">
+        <div class="row">
+            <div class="col-12" id="title">
+                <h3 class="mt-5">Índice de masa corporal</h4>
+            </div>
+        </row>
+        <div class="row">
+            <div class="col-12 col-md-6 my-4">
+                <div class="mb-3">
+                    <label for="peso" class="form-label">Peso (kg)</label>
+                    <input type="number" class="form-control" id="peso" name="peso"
+                        placeholder="Ingrese su peso en kilogramos" required>
+                </div>
+                <div class="mb-3">
+                    <label for="altura" class="form-label">Altura (m)</label>
+                    <input type="number" class="form-control" id="altura" name="altura"
+                        placeholder="Ingrese su altura en metros" required>
+                </div>
+                <button class="btn btn-primary" onclick="calcularIMC()">Calcular</button>
+            </div>
+            <div class="col-12 col-md-6 my-4 px-5">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td id="bajoPeso"></td>
+                            <td>Bajo peso</td>
+                        </tr>
+                        <tr>
+                            <td id="normal"></td>
+                            <td>Normal</td>
+                        </tr>
+                        <tr>
+                            <td id="sobrepeso"></td>
+                            <td>Sobrepeso</td>
+                        </tr>
+                        <tr>
+                            <td id="obesidad"></td>
+                            <td>Obesidad</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script>
+
+        let peso = document.getElementById('peso');
+        let altura = document.getElementById('altura');
+        let bajoPeso = document.getElementById('bajoPeso');
+        let normal = document.getElementById('normal');
+        let sobrepeso = document.getElementById('sobrepeso');
+        let obesidad = document.getElementById('obesidad');
+
+        function limpiar() {
+            peso.value = '';
+            altura.value = '';
+            bajoPeso.style.backgroundColor = '';
+            normal.style.backgroundColor = '';
+            sobrepeso.style.backgroundColor = '';
+            obesidad.style.backgroundColor = '';
+        }
+
+        function calcularIMC() {
+            let imc = peso.value / (altura.value * altura.value);
+
+            if (peso.value == '' || altura.value == '') {
+                alert("Por favor ingrese los datos solicitados");
+                limpiar();
+            } else if (peso.value < 0 || altura.value < 0) {
+                alert("Por favor ingrese valores positivos");
+                limpiar();
+            } else if (peso.value == 0 || altura.value == 0) {
+                alert("Por favor ingrese valores mayores a 0");
+                limpiar();
+            } else {
+                if (imc < 18.4) {
+                    bajoPeso.style.backgroundColor = 'yellow';
+                    normal.style.backgroundColor = '';
+                    sobrepeso.style.backgroundColor = '';
+                    obesidad.style.backgroundColor = '';
+                } else if (imc >= 18.5 && imc <= 24.9) {
+                    normal.style.backgroundColor = 'green';
+                    bajoPeso.style.backgroundColor = '';
+                    sobrepeso.style.backgroundColor = '';
+                    obesidad.style.backgroundColor = '';
+                } else if (imc >= 25 && imc <= 29.9) {
+                    sobrepeso.style.backgroundColor = 'orange';
+                    bajoPeso.style.backgroundColor = '';
+                    normal.style.backgroundColor = '';
+                    obesidad.style.backgroundColor = '';
+                } else if (imc >= 30) {
+                    obesidad.style.backgroundColor = 'red';
+                    bajoPeso.style.backgroundColor = '';
+                    normal.style.backgroundColor = '';
+                    sobrepeso.style.backgroundColor = '';
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
